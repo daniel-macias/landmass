@@ -7,7 +7,7 @@ function App() {
   return (
     <div className="App">
       <p>Landmass</p>
-      <Map />
+      <Map squareSize={1} boardSize={500} />
     </div>
   );
 }

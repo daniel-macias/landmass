@@ -1,6 +1,11 @@
 import React, { useEffect, useRef } from 'react';
 
-const Map: React.FC = () => {
+interface MapProps {
+    squareSize: number;
+    boardSize: number;
+  }
+
+const Map: React.FC<MapProps> = ({ squareSize, boardSize }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -11,8 +16,6 @@ const Map: React.FC = () => {
       return;
     }
 
-    const squareSize = 1; // Size of each square in pixels
-    const boardSize = 500; // Size of the entire map in squares
     const canvasSize = squareSize * boardSize; // Size of the canvas in pixels
 
     canvas.width = canvasSize;
