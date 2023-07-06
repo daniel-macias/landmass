@@ -3,10 +3,11 @@ import logo from './logo.svg';
 import './App.css';
 import Map from './components/Map';
 import seedrandom from 'seedrandom';
+import { createNoise2D } from 'simplex-noise';
 
 function App() {
 
-  const [randomNumber, setRandomNumber] = useState('');
+  const [randomNumber, setRandomNumber] = useState(0);
 
   useEffect(() => {
     const now = new Date();
@@ -14,7 +15,7 @@ function App() {
       (now.getDate() + now.getMonth() * 32 + now.getFullYear() * 400).toString()
     );
 
-    setRandomNumber(rng().toString());
+    setRandomNumber(parseFloat(rng.toString()));
 
 
   }, []); 
@@ -22,7 +23,7 @@ function App() {
   return (
     <div className="App">
       <p>Landmass</p>
-      <Map squareSize={1} boardSize={500} />
+      <Map squareSize={1} boardSize={500} seed={randomNumber} />
       <p>{randomNumber}</p>
     </div>
   );
