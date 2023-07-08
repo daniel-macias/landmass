@@ -23,7 +23,7 @@ function App() {
   return (
     <div className="App">
       <p>Landmass</p>
-      <Map squareSize={1} boardSize={500} seed={randomNumber} />
+      <Map squareSize={1} boardSize={500} seed={randomNumber} edgeCompressionAmount={0.1} decreasingMultiplier={0.4} increasingMultiplier={0.07} decreasingOffset={0.4} increasingOffset={0.7} scale={200} />
       <p>{randomNumber}</p>
     </div>
   );

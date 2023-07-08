@@ -6,6 +6,12 @@ interface MapProps {
   squareSize: number;
   boardSize: number;
   seed: number;
+  edgeCompressionAmount: number;
+  decreasingMultiplier: number;
+  increasingMultiplier: number;
+  decreasingOffset: number;
+  increasingOffset: number;
+  scale: number;
 }
 
 interface RGBColor {
@@ -14,7 +20,7 @@ interface RGBColor {
   blue: number;
 }
 
-const Map: React.FC<MapProps> = ({ squareSize, boardSize, seed }) => {
+const Map: React.FC<MapProps> = ({ squareSize, boardSize, seed, edgeCompressionAmount, decreasingMultiplier, increasingMultiplier,decreasingOffset, increasingOffset, scale }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   seed = Math.abs(seed);
@@ -40,13 +46,6 @@ const Map: React.FC<MapProps> = ({ squareSize, boardSize, seed }) => {
     const canvas = canvasRef.current;
     const context = canvas?.getContext('2d');
 
-    //THIS WILL BECOME PROPS
-    const edgeCompressionAmount : number = 0.1;
-    const decreasingMultiplier : number = 0.4;
-    const increasingMultiplier : number = 0.07;
-    const decreasingOffset : number = 0.4;
-    const increasingOffset : number = 0.7;
-    const scale : number = 200;
     let vectorSeedX : number = 6;
     let vectorSeedY : number = 0.5;
 
