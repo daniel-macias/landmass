@@ -1,10 +1,23 @@
 import React, { useState } from 'react';
 import { Dialog, DialogTitle, DialogContent, DialogActions, Box, TextField, Slider, Button, Typography, Container, Grid } from '@mui/material';
 
+interface SettingsProps {
+    onSubmit: (formData: {
+      boardSize: number;
+      seed: number;
+      edgeCompressionAmount: number;
+      decreasingMultiplier: number;
+      increasingMultiplier: number;
+      decreasingOffset: number;
+      increasingOffset: number;
+      scale: number;
+      squareSize: number;
+    }) => void;
+}
 
-const Settings = () => {
+const Settings = ({ onSubmit }: SettingsProps) => {
   // State variables for your settings
-  const [boardSize, setBoardSize] = useState<number>(500);
+  const [boardSize, setBoardSize] = useState<number>(400);
   const [seed, setSeed] = useState<number>(0);
   const [edgeCompressionAmount, setEdgeCompressionAmount] = useState<number>(0.5);
   const [decreasingMultiplier, setDecreasingMultiplier] = useState<number>(0.5);
@@ -12,15 +25,26 @@ const Settings = () => {
   const [decreasingOffset, setDecreasingOffset] = useState<number>(0.5);
   const [increasingOffset, setIncreasingOffset] = useState<number>(0.5);
   const [scale, setScale] = useState<number>(200);
+  const [squareSize, setSquareSize] = useState<number>(1);
 
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
 
   // Function to handle form submission
   const handleSubmit = () => {
-    // Process form data and generate the map
-    // You can add your map generation logic here
-    console.log('Generating Map...');
+    const formData = {
+        boardSize,
+        seed,
+        edgeCompressionAmount,
+        decreasingMultiplier,
+        increasingMultiplier,
+        decreasingOffset,
+        increasingOffset,
+        scale,
+        squareSize
+      };
+      // Call the onSubmit function from the props and pass the form data
+      onSubmit(formData);
   };
 
   const openDialog = () => {
@@ -34,20 +58,29 @@ const Settings = () => {
   return (
     <Container maxWidth="lg">
       <form style={{ margin: '16px 0' }}>
-      <Typography id="decreasing-multiplier-slider-label">Map Settings</Typography>
+      <Typography id="decreasing-multiplier-slider-label" fontFamily={'Nunito Sans'}>Map Settings</Typography>
       <hr />
         <Grid container spacing={2} style={{ marginTop: '8px' }}>
           <Grid item xs={12} sm={6}>
-            <TextField
+            {/* <TextField
               label="Board Size"
               type="number"
               value={boardSize.toString()}
               onChange={(e) => setBoardSize(parseInt(e.target.value, 10))}
               fullWidth
               InputProps={{ inputProps: { min: 0, max: 1000 } }}
-            />
-            <Typography id="decreasing-multiplier-slider-label" style={{ marginTop: '8px' }}>Decreasing Multiplier</Typography>
+            /> */}
+            <TextField
+            label="Scale"
+            type="number"
+            value={scale.toString()}
+            onChange={(e) => setScale(parseInt(e.target.value, 10))}
+            fullWidth
+            InputProps={{ inputProps: { min: 0, max: 1000 } }}
+          />
+            <Typography fontFamily={'Nunito Sans'} id="decreasing-multiplier-slider-label" style={{ marginTop: '8px' }}>Subtract Multiplier</Typography>
             <Slider
+              size="small"
               value={decreasingMultiplier}
               onChange={(_, newValue) => setDecreasingMultiplier(newValue as number)}
               valueLabelDisplay="auto"
@@ -56,8 +89,9 @@ const Settings = () => {
               max={1}
               aria-labelledby="decreasing-multiplier-slider-label"
             />
-            <Typography id="decreasing-offset-slider-label">Decreasing Offset</Typography>
+            <Typography fontFamily={'Nunito Sans'} id="decreasing-offset-slider-label">Subtract Offset</Typography>
             <Slider
+              size="small"
               value={decreasingOffset}
               onChange={(_, newValue) => setDecreasingOffset(newValue as number)}
               valueLabelDisplay="auto"
@@ -66,20 +100,20 @@ const Settings = () => {
               max={1}
               aria-labelledby="decreasing-offset-slider-label"
             />
-
+            
             
           </Grid>
           <Grid item xs={12} sm={6}>
           <TextField
-            label="Scale"
-            type="number"
-            value={scale.toString()}
-            onChange={(e) => setScale(parseInt(e.target.value, 10))}
-            fullWidth
-            InputProps={{ inputProps: { min: 0, max: 1000 } }}
-          />
-            <Typography id="increasing-multiplier-slider-label" style={{ marginTop: '8px' }}>Increasing Multiplier</Typography>
+              label="Seed"
+              type="number"
+              value={seed.toString()}
+              onChange={(e) => setSeed(parseInt(e.target.value, 10))}
+              fullWidth
+            />
+            <Typography fontFamily={'Nunito Sans'} id="increasing-multiplier-slider-label" style={{ marginTop: '8px' }}>Increasing Multiplier</Typography>
             <Slider
+              size="small"
               value={increasingMultiplier}
               onChange={(_, newValue) => setIncreasingMultiplier(newValue as number)}
               valueLabelDisplay="auto"
@@ -89,8 +123,9 @@ const Settings = () => {
               aria-labelledby="increasing-multiplier-slider-label"
             />
             
-            <Typography id="increasing-offset-slider-label">Increasing Offset</Typography>
+            <Typography fontFamily={'Nunito Sans'} id="increasing-offset-slider-label">Increasing Offset</Typography>
             <Slider
+              size="small"
               value={increasingOffset}
               onChange={(_, newValue) => setIncreasingOffset(newValue as number)}
               valueLabelDisplay="auto"
@@ -102,8 +137,9 @@ const Settings = () => {
           </Grid>
         </Grid>
         <Grid item xs={12}>
-        <Typography id="decreasing-multiplier-slider-label" style={{ marginTop: '8px' }}>Edge Compression</Typography>
+            <Typography fontFamily={'Nunito Sans'} id="decreasing-multiplier-slider-label" style={{ marginTop: '8px' }}>Edge Compression</Typography>
             <Slider
+              size="small"
               value={edgeCompressionAmount}
               onChange={(_, newValue) => setEdgeCompressionAmount(newValue as number)}
               valueLabelDisplay="auto"
@@ -112,25 +148,23 @@ const Settings = () => {
               max={1}
               aria-labelledby="decreasing-multiplier-slider-label"
             />
-          <TextField style={{ marginTop: '8px' }}
-              label="Seed"
-              type="number"
-              value={seed.toString()}
-              onChange={(e) => setSeed(parseInt(e.target.value, 10))}
-              fullWidth
-            />
+            
+          
             
         </Grid>
-        <Box mt={2}>
-          <Button variant="contained" color="primary" onClick={handleSubmit}>
+
+        <Grid container spacing={2} style={{ marginTop: '8px' }}>
+          <Grid item xs={12} sm={6}>
+          <Button variant="contained" color="success" onClick={handleSubmit} style={{ fontFamily: 'Nunito Sans' }}>
             Generate Map
           </Button>
-        </Box>
-        <Box mt={2}>
-          <Button variant="contained" color="primary" onClick={openDialog}>
-            How This Works
+          </Grid>
+          <Grid item xs={12} sm={6}>
+          <Button  variant="contained" color="primary" onClick={openDialog} style={{ fontFamily: 'Nunito Sans' }}>
+            How It Works
           </Button>
-        </Box>
+          </Grid>
+        </Grid>
       </form>
 
       <Dialog open={isDialogOpen} onClose={closeDialog}>
@@ -141,7 +175,7 @@ const Settings = () => {
         <DialogActions>
             <Button
             component="a" // Use component="a" for a link
-            href="https://github.com/your-repository-url" // Replace with your GitHub repository URL
+            href="https://github.com/daniel-macias/landmass" // Replace with your GitHub repository URL
             target="_blank" // Open the link in a new tab
             color="primary"
             >

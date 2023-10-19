@@ -144,7 +144,7 @@ const Map: React.FC<MapProps> = ({ squareSize, boardSize, seed, edgeCompressionA
 
       }
     }
-  }, []);
+  }, [squareSize, boardSize, seed, edgeCompressionAmount, decreasingMultiplier, increasingMultiplier, decreasingOffset, increasingOffset, scale]);
 
   return <canvas ref={canvasRef} />;
 };

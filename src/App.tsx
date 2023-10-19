@@ -1,15 +1,25 @@
 import React, { useEffect, useRef, useState } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import Map from './components/Map';
 import Settings from './components/Settings';
 import seedrandom from 'seedrandom';
 import { Grid, Paper, Container } from '@mui/material';
-import { createNoise2D } from 'simplex-noise';
 
 function App() {
 
   const [randomNumber, setRandomNumber] = useState(0);
+  const [mapData, setMapData] = useState({
+    boardSize: 400,
+    squareSize: 1,
+    seed: randomNumber,
+    edgeCompressionAmount: 0.5,
+    decreasingMultiplier: 0.5,
+    increasingMultiplier: 0.5,
+    decreasingOffset: 0.5,
+    increasingOffset: 0.5,
+    scale: 200,
+  });
+  
 
   useEffect(() => {
     const now = new Date();
@@ -21,6 +31,23 @@ function App() {
 
 
   }, []); 
+
+  const generateMap = (formData: {
+    boardSize: number;
+    squareSize: number;
+    seed: number;
+    edgeCompressionAmount: number;
+    decreasingMultiplier: number;
+    increasingMultiplier: number;
+    decreasingOffset: number;
+    increasingOffset: number;
+    scale: number;
+  }) => {
+    // Process the form data and generate the map
+    console.log('Generating Map...');
+    console.log(formData);
+    setMapData(formData);
+  };
 
   return (
     <div className="App">
@@ -35,7 +62,7 @@ function App() {
         }}
       >
         
-      <p>Landmass</p>
+      <h1 className="montserrat-title">Perlin Noise Landmass Generator v1</h1>
 
       {/* 'lg' here sets the maximum width to large screens, but you can adjust this based on your preference */}
       <Grid container spacing={2}>
@@ -43,16 +70,16 @@ function App() {
         
         <Grid item xs={12} sm={8}>
           {/* Content for the 2/3 column */}
-          <Paper elevation={3} style={{ minHeight: '200px', display: 'flex', flexDirection: 'column' }}>
-            <div style={{ flex: 1, overflow: 'auto' }}>
-            <Map squareSize={1} boardSize={500} seed={randomNumber} edgeCompressionAmount={0.1} decreasingMultiplier={0.4} increasingMultiplier={0.4} decreasingOffset={0.4} increasingOffset={0.7} scale={200} />
+          <Paper elevation={3} style={{ minHeight: '100%', display: 'flex', flexDirection: 'column' }}>
+            <div style={{ flex: 1, minHeight: 0, alignItems: 'center' }}>
+            <Map {...mapData} />
             </div>
           </Paper>
         </Grid>
         <Grid item xs={12} sm={4}>
           {/* Content for the 1/3 column */}
-          <Paper elevation={3} style={{ minHeight: '200px', display: 'flex', flexDirection: 'column' }}>
-            <Settings />
+          <Paper elevation={3} style={{ minHeight: '100%', display: 'flex', flexDirection: 'column' }}>
+            <Settings onSubmit={generateMap} />
           </Paper>
         </Grid>
       </Grid>
