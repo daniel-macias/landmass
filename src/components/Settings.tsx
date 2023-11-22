@@ -170,7 +170,24 @@ const Settings = ({ onSubmit }: SettingsProps) => {
       <Dialog open={isDialogOpen} onClose={closeDialog}>
         <DialogTitle>How This Works</DialogTitle>
         <DialogContent>
-            This is an example of how this works.
+        <p>Explaining how this was done in detail may take a long time, but in a nutshell: I used Perlin noise as a base. This noise is later altered using the Euclidean distance function to simulate actual land behavior. I did this twice over to increase coastline granularity.</p>
+        <Grid container justifyContent="center" alignItems="center" spacing={2} paddingTop={2}>
+          <Grid item>
+            <img src="/images/perlin.png" alt="perlin noise" style={{ width: '120px', height: 'auto' }} />
+            <p style={{ fontSize: '14px' }}>Perlin Noise</p>
+          </Grid>
+          <Grid item>
+            <img src="/images/euclid.png" alt="euclid distance function" style={{ width: '140px', height: 'auto' }} />
+            <p style={{ fontSize: '14px' }}>Euclid's Function</p>
+          </Grid>
+        </Grid>
+        <p>This is an oversimplified explanation of how this works, but here is a short expanation of the variables the user can change: </p>
+
+        <p><strong>Multiplier:</strong> Adjusts the granularity and complexity of landmasses along different axes.</p>
+
+        <p><strong>Offset:</strong> Influences the properties of maximum and minimum altitude, allowing for tailored elevation characteristics.</p>
+
+        <p><strong>Edge Compression:</strong> Alters the proportion of land surfaces to water, impacting the extent of landmasses.</p>
         </DialogContent>
         <DialogActions>
             <Button
