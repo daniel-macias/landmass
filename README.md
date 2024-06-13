@@ -1,3 +1,13 @@
+# Perlin Noise Landmass Generator
+
+Welcome to the Perlin Noise Landmass Generator project. This React application generates topographical maps using Perlin noise, allowing you to customize various parameters to create unique landmasses.
+
+## Features
+
+- **Interactive Map Generation**: Customize and generate maps with different parameters such as scale, edge compression, and fractality.
+- **Color Customization**: Use color pickers to define the color scheme for different topographical features like deep oceans, shallow waters, and various land elevations.
+- **Responsive Design**: The map adjusts to fit the container, ensuring a consistent experience across different screen sizes.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

@@ -107,16 +107,16 @@ const Settings = ({ onSubmit }: SettingsProps) => {
   const id = open ? 'color-picker-popover' : undefined;
 
   const colorLabels = [
-    'Deep Ocean',
-    'Mid Low Ocean',
-    'Mid High Ocean',
-    'Shallow Ocean',
-    'Land 0',
-    'Land 1',
-    'Land 2',
-    'Land 3',
-    'Land 4',
-    'Land 5'
+    'Deep',
+    'Mid Low',
+    'Mid High',
+    'Shallow',
+    '0m',
+    '100m',
+    '300m',
+    '600m',
+    '1000m',
+    '2000m'
   ];
 
   return (
@@ -237,7 +237,7 @@ const Settings = ({ onSubmit }: SettingsProps) => {
                     }}
                     onClick={(event) => handleClick(event, index)}
                   >
-                    {colorLabels[index].split(' ')[0]}
+                    {colorLabels[index]}
                   </Button>
                 </Grid>
               ))}
@@ -258,7 +258,7 @@ const Settings = ({ onSubmit }: SettingsProps) => {
                     }}
                     onClick={(event) => handleClick(event, index + 4)}
                   >
-                    {colorLabels[index + 4].split(' ')[0]}
+                    {colorLabels[index + 4]}
                   </Button>
                 </Grid>
               ))}
@@ -306,9 +306,14 @@ const Settings = ({ onSubmit }: SettingsProps) => {
             </Grid>
           </Grid>
           <p>This is an oversimplified explanation of how this works, but here is a short explanation of the variables the user can change:</p>
-          <p><strong>Multiplier:</strong> Adjusts the granularity and complexity of landmasses along different axes.</p>
-          <p><strong>Offset:</strong> Influences the properties of maximum and minimum altitude, allowing for tailored elevation characteristics.</p>
-          <p><strong>Edge Compression:</strong> Alters the proportion of land surfaces to water, impacting the extent of landmasses.</p>
+          <p><strong>Scale:</strong> This determines the level of zoom of the noise. A larger scale means the noise patterns are spread out more, resulting in larger and fewer landmasses.</p>
+          <p><strong>Seed:</strong> The seed is a starting point for the noise generation. Changing the seed will generate a completely different map.</p>
+          <p><strong>Subtract Multiplier:</strong> This adjusts the intensity of the noise reduction applied to the map, affecting how much the noise value is decreased.</p>
+          <p><strong>Subtract Offset:</strong> This provides a fixed reduction to the noise value, further fine-tuning the reduction process.</p>
+          <p><strong>Increasing Multiplier:</strong> This adjusts the intensity of the noise addition applied to the map, affecting how much the noise value is increased.</p>
+          <p><strong>Incr. Offset:</strong> This provides a fixed increase to the noise value, further fine-tuning the addition process.</p>
+          <p><strong>Edge Compression:</strong> This parameter adjusts how the noise values are compressed towards the edges of the map, impacting the appearance of the coastline.</p>
+          <p><strong>Fractality:</strong> This determines how many layers of noise are combined to create more detailed and fractal patterns. Higher fractality means more detail and complexity in the landmasses.</p>
         </DialogContent>
         <DialogActions>
           <Button

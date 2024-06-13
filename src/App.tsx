@@ -78,7 +78,7 @@ function App() {
             overflowY: 'auto', // Enable vertical scrolling when needed
           }}
         >
-          <h1 className="montserrat-title">Perlin Noise Landmass Generator v1</h1>
+          <h1 className="montserrat-title">Perlin Noise Landmass Generator v1.1</h1>
 
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
