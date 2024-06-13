@@ -12,6 +12,8 @@ interface MapProps {
   decreasingOffset: number;
   increasingOffset: number;
   scale: number;
+  fractality: number;
+  colors: RGBColor[];
 }
 
 interface RGBColor {
@@ -29,26 +31,14 @@ const Map: React.FC<MapProps> = ({
   increasingMultiplier,
   decreasingOffset,
   increasingOffset,
-  scale
+  scale,
+  fractality,
+  colors
 }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   // Ensure the seed is positive
   seed = Math.abs(seed);
-
-  // Define colors for different height levels
-  const colors: RGBColor[] = [
-    { red: 150, green: 201, blue: 240 }, // Water Deep
-    { red: 172, green: 219, blue: 251 }, // Water Mid Low
-    { red: 172, green: 219, blue: 251 }, // Water Mid High
-    { red: 198, green: 236, blue: 255 }, // Water Shallow
-    { red: 148, green: 191, blue: 139 }, // Land 0
-    { red: 168, green: 198, blue: 143 }, // Land 1
-    { red: 189, green: 204, blue: 150 }, // Land 2
-    { red: 209, green: 215, blue: 171 }, // Land 3
-    { red: 225, green: 228, blue: 181 }, // Land 4
-    { red: 239, green: 235, blue: 192 }, // Land 5
-  ];
 
   // Get the color corresponding to the given value
   const getColorForValue = (value: number): RGBColor => {
@@ -129,7 +119,7 @@ const Map: React.FC<MapProps> = ({
         perlinNoiseValue = (1 + perlinNoiseValue - distFromEdge) / 2;
 
         // Apply fractal noise for more detail
-        const fractalValue = addFractality((j + vectorSeedX) / scale, (i + vectorSeedY) / scale, 5, 0.5);
+        const fractalValue = addFractality((j + vectorSeedX) / scale, (i + vectorSeedY) / scale, fractality, 0.5);
         perlinNoiseValue = (perlinNoiseValue + fractalValue) / 2;
 
         // Adjust Perlin noise value based on edge distance
@@ -142,7 +132,7 @@ const Map: React.FC<MapProps> = ({
         context.fillRect(i * squareSize, j * squareSize, squareSize, squareSize);
       }
     }
-  }, [squareSize, boardSize, seed, edgeCompressionAmount, decreasingMultiplier, increasingMultiplier, decreasingOffset, increasingOffset, scale]);
+  }, [squareSize, boardSize, seed, edgeCompressionAmount, decreasingMultiplier, increasingMultiplier, decreasingOffset, increasingOffset, scale, fractality, colors]);
 
   return <canvas ref={canvasRef} />;
 };

@@ -13,6 +13,7 @@ interface SettingsProps {
     increasingOffset: number;
     scale: number;
     squareSize: number;
+    fractality: number;
     colors: RGBColor[];
   }) => void;
 }
@@ -34,6 +35,7 @@ const Settings = ({ onSubmit }: SettingsProps) => {
   const [increasingOffset, setIncreasingOffset] = useState<number>(0.5);
   const [scale, setScale] = useState<number>(200);
   const [squareSize, setSquareSize] = useState<number>(1);
+  const [fractality, setFractality] = useState<number>(5);
 
   // State variables for color pickers
   const [colors, setColors] = useState<RGBColor[]>([
@@ -77,6 +79,7 @@ const Settings = ({ onSubmit }: SettingsProps) => {
       increasingOffset,
       scale,
       squareSize,
+      fractality,
       colors,
     };
     // Call the onSubmit function from the props and pass the form data
@@ -201,11 +204,25 @@ const Settings = ({ onSubmit }: SettingsProps) => {
                 aria-labelledby="decreasing-multiplier-slider-label"
               />
             </Grid>
+            <Grid item xs={12}>
+              <Typography fontFamily={'Nunito Sans'} id="fractality-slider-label" style={{ marginTop: '8px' }}>Fractality</Typography>
+              <Slider
+                size="small"
+                value={fractality}
+                onChange={(_, newValue) => setFractality(newValue as number)}
+                valueLabelDisplay="auto"
+                step={1}
+                min={1}
+                max={5}
+                marks={[{ value: 1, label: '1' }, { value: 2, label: '2' }, { value: 3, label: '3' }, { value: 4, label: '4' }, { value: 5, label: '5' }]}
+                aria-labelledby="fractality-slider-label"
+              />
+            </Grid>
           </Grid>
           <Grid item xs={12} sm={4} style={{ marginTop: '16px' }}>
             <Typography fontFamily={'Nunito Sans'}>Layer Colors</Typography>
             <Typography fontFamily={'Nunito Sans'}>Water</Typography>
-            <Grid container spacing={1} style={{ marginTop: '8px' }}>
+            <Grid container>
               {colors.slice(0, 4).map((color, index) => (
                 <Grid item xs={6} key={index}>
                   <Button
@@ -226,7 +243,7 @@ const Settings = ({ onSubmit }: SettingsProps) => {
               ))}
             </Grid>
             <Typography fontFamily={'Nunito Sans'} style={{ marginTop: '8px' }}>Land</Typography>
-            <Grid container spacing={1} style={{ marginTop: '8px' }}>
+            <Grid container>
               {colors.slice(4).map((color, index) => (
                 <Grid item xs={6} key={index + 4}>
                   <Button
