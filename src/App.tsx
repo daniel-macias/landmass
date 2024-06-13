@@ -68,7 +68,7 @@ function App() {
       <Grid container spacing={2}>
         {/* For larger screens (1/3 and 2/3) */}
         
-        <Grid item xs={12} sm={8}>
+        <Grid item xs={12} sm={6}>
           {/* Content for the 2/3 column */}
           <Paper elevation={3} style={{ minHeight: '100%', display: 'flex', flexDirection: 'column' }}>
             <div style={{ flex: 1, minHeight: 0, alignItems: 'center' }}>
@@ -76,7 +76,7 @@ function App() {
             </div>
           </Paper>
         </Grid>
-        <Grid item xs={12} sm={4}>
+        <Grid item xs={12} sm={6}>
           {/* Content for the 1/3 column */}
           <Paper elevation={3} style={{ minHeight: '100%', display: 'flex', flexDirection: 'column' }}>
             <Settings onSubmit={generateMap} />
