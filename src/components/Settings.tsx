@@ -26,14 +26,14 @@ interface RGBColor {
 
 const Settings = ({ onSubmit }: SettingsProps) => {
   // State variables for your settings
-  const [boardSize, setBoardSize] = useState<number>(400);
+  const [boardSize, setBoardSize] = useState<number>(500);
   const [seed, setSeed] = useState<number>(0);
   const [edgeCompressionAmount, setEdgeCompressionAmount] = useState<number>(0.5);
   const [decreasingMultiplier, setDecreasingMultiplier] = useState<number>(0.5);
   const [increasingMultiplier, setIncreasingMultiplier] = useState<number>(0.5);
   const [decreasingOffset, setDecreasingOffset] = useState<number>(0.5);
   const [increasingOffset, setIncreasingOffset] = useState<number>(0.5);
-  const [scale, setScale] = useState<number>(200);
+  const [scale, setScale] = useState<number>(300);
   const [squareSize, setSquareSize] = useState<number>(1);
   const [fractality, setFractality] = useState<number>(5);
 

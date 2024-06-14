@@ -14,7 +14,7 @@ interface RGBColor {
 function App() {
   const [randomNumber, setRandomNumber] = useState(0);
   const [mapData, setMapData] = useState({
-    boardSize: 400,
+    boardSize: 500,
     squareSize: 1,
     seed: randomNumber,
     edgeCompressionAmount: 0.5,
@@ -22,7 +22,7 @@ function App() {
     increasingMultiplier: 0.5,
     decreasingOffset: 0.5,
     increasingOffset: 0.5,
-    scale: 200,
+    scale: 300,
     fractality: 5,
     colors: [
       { red: 150, green: 201, blue: 240 }, // Water Deep
@@ -83,7 +83,7 @@ function App() {
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <Paper elevation={3} style={{ minHeight: '100%', display: 'flex', flexDirection: 'column' }}>
-                <div style={{ flex: 1, minHeight: 0, alignItems: 'center' }}>
+                <div style={{ alignItems: 'center' }}> 
                   <Map {...mapData} />
                 </div>
               </Paper>

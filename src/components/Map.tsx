@@ -134,7 +134,11 @@ const Map: React.FC<MapProps> = ({
     }
   }, [squareSize, boardSize, seed, edgeCompressionAmount, decreasingMultiplier, increasingMultiplier, decreasingOffset, increasingOffset, scale, fractality, colors]);
 
-  return <canvas ref={canvasRef} />;
+  return (
+    <div style={{ maxWidth: '100%' }}>
+      <canvas ref={canvasRef} style={{ maxWidth: '100%', height: 'auto' }} />
+    </div>
+  );
 };
 
 export default Map;
