@@ -16,7 +16,7 @@ interface SettingsProps {
     fractality: number;
     colors: RGBColor[];
   }) => void;
-  handleDownload: () => void; // Add the handleDownload prop
+  handleDownload: () => void;
 }
 
 interface RGBColor {
@@ -222,8 +222,9 @@ const Settings = ({ onSubmit, handleDownload }: SettingsProps) => {
           </Grid>
           <Grid item xs={12} sm={4} style={{ marginTop: '16px' }}>
             <Typography fontFamily={'Nunito Sans'}>Layer Colors</Typography>
+            <hr />
             <Typography fontFamily={'Nunito Sans'}>Water</Typography>
-            <Grid container>
+            <Grid spacing={1} container>
               {colors.slice(0, 4).map((color, index) => (
                 <Grid item xs={6} key={index}>
                   <Button
@@ -231,9 +232,8 @@ const Settings = ({ onSubmit, handleDownload }: SettingsProps) => {
                     style={{
                       backgroundColor: `rgb(${color.red}, ${color.green}, ${color.blue})`,
                       color: 'white',
-                      width: '60px',
+                      width: '100%',
                       height: '30px',
-                      marginBottom: '8px',
                       fontSize: '10px'
                     }}
                     onClick={(event) => handleClick(event, index)}
@@ -244,7 +244,7 @@ const Settings = ({ onSubmit, handleDownload }: SettingsProps) => {
               ))}
             </Grid>
             <Typography fontFamily={'Nunito Sans'} style={{ marginTop: '8px' }}>Land</Typography>
-            <Grid container>
+            <Grid spacing={1} container>
               {colors.slice(4).map((color, index) => (
                 <Grid item xs={6} key={index + 4}>
                   <Button
@@ -252,9 +252,8 @@ const Settings = ({ onSubmit, handleDownload }: SettingsProps) => {
                     style={{
                       backgroundColor: `rgb(${color.red}, ${color.green}, ${color.blue})`,
                       color: 'white',
-                      width: '60px',
+                      width: '100%',
                       height: '30px',
-                      marginBottom: '8px',
                       fontSize: '10px'
                     }}
                     onClick={(event) => handleClick(event, index + 4)}
@@ -279,18 +278,18 @@ const Settings = ({ onSubmit, handleDownload }: SettingsProps) => {
           <ChromePicker color={selectedColor !== null ? `rgb(${colors[selectedColor].red}, ${colors[selectedColor].green}, ${colors[selectedColor].blue})` : '#fff'} onChange={handleColorChange} />
         </Popover>
         <Grid container spacing={2} style={{ marginTop: '16px' }}>
-          <Grid item xs={6}>
-            <Button variant="contained" color="success" onClick={handleSubmit} style={{ fontFamily: 'Nunito Sans' }}>
+          <Grid item xs={6} sm={6}>
+            <Button variant="contained" color="success" onClick={handleSubmit} style={{ fontFamily: 'Nunito Sans', width: '100%' }}>
               Generate Map
             </Button>
           </Grid>
-          <Grid item xs={6}>
-            <Button variant="contained" color="secondary" onClick={handleDownload} style={{ fontFamily: 'Nunito Sans' }}>
+          <Grid item xs={6} sm={6}>
+            <Button variant="contained" color="secondary" onClick={handleDownload} style={{ fontFamily: 'Nunito Sans', width: '100%' }}>
               Download Map
             </Button>
           </Grid>
-          <Grid item xs={12}>
-            <Button variant="contained" color="primary" onClick={openDialog} style={{ fontFamily: 'Nunito Sans' }}>
+          <Grid item xs={12} sm={12}>
+            <Button variant="contained" color="info" onClick={openDialog} style={{ fontFamily: 'Nunito Sans', width: '100%' }}>
               How It Works
             </Button>
           </Grid>
