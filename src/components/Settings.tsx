@@ -16,6 +16,7 @@ interface SettingsProps {
     fractality: number;
     colors: RGBColor[];
   }) => void;
+  handleDownload: () => void; // Add the handleDownload prop
 }
 
 interface RGBColor {
@@ -24,7 +25,7 @@ interface RGBColor {
   blue: number;
 }
 
-const Settings = ({ onSubmit }: SettingsProps) => {
+const Settings = ({ onSubmit, handleDownload }: SettingsProps) => {
   // State variables for your settings
   const [boardSize, setBoardSize] = useState<number>(500);
   const [seed, setSeed] = useState<number>(0);
@@ -127,7 +128,7 @@ const Settings = ({ onSubmit }: SettingsProps) => {
         <Grid container spacing={2} style={{ marginTop: '8px' }}>
           <Grid item xs={12} sm={8}>
             <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={6}>
                 <TextField
                   label="Scale"
                   type="number"
@@ -159,7 +160,7 @@ const Settings = ({ onSubmit }: SettingsProps) => {
                   aria-labelledby="decreasing-offset-slider-label"
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={6}>
                 <TextField
                   label="Seed"
                   type="number"
@@ -167,7 +168,7 @@ const Settings = ({ onSubmit }: SettingsProps) => {
                   onChange={(e) => setSeed(parseInt(e.target.value, 10))}
                   fullWidth
                 />
-                <Typography fontFamily={'Nunito Sans'} id="increasing-multiplier-slider-label" style={{ marginTop: '8px' }}>Increasing Multiplier</Typography>
+                <Typography fontFamily={'Nunito Sans'} id="increasing-multiplier-slider-label" style={{ marginTop: '8px' }}>Incr. Multiplier</Typography>
                 <Slider
                   size="small"
                   value={increasingMultiplier}
@@ -278,12 +279,17 @@ const Settings = ({ onSubmit }: SettingsProps) => {
           <ChromePicker color={selectedColor !== null ? `rgb(${colors[selectedColor].red}, ${colors[selectedColor].green}, ${colors[selectedColor].blue})` : '#fff'} onChange={handleColorChange} />
         </Popover>
         <Grid container spacing={2} style={{ marginTop: '16px' }}>
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={6}>
             <Button variant="contained" color="success" onClick={handleSubmit} style={{ fontFamily: 'Nunito Sans' }}>
               Generate Map
             </Button>
           </Grid>
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={6}>
+            <Button variant="contained" color="secondary" onClick={handleDownload} style={{ fontFamily: 'Nunito Sans' }}>
+              Download Map
+            </Button>
+          </Grid>
+          <Grid item xs={12}>
             <Button variant="contained" color="primary" onClick={openDialog} style={{ fontFamily: 'Nunito Sans' }}>
               How It Works
             </Button>

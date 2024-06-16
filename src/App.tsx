@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './App.css';
 import Map from './components/Map';
 import Settings from './components/Settings';
@@ -38,6 +38,8 @@ function App() {
     ],
   });
 
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+
   useEffect(() => {
     const now = new Date();
     const rng = seedrandom(
@@ -66,6 +68,15 @@ function App() {
     setMapData(formData);
   };
 
+  const handleDownload = () => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const link = document.createElement('a');
+    link.download = 'generated_map.png';
+    link.href = canvas.toDataURL();
+    link.click();
+  };
+
   return (
     <div className="App">
       <Container maxWidth="lg">
@@ -84,13 +95,13 @@ function App() {
             <Grid item xs={12} sm={6}>
               <Paper elevation={3} style={{ minHeight: '100%', display: 'flex', flexDirection: 'column' }}>
                 <div style={{ alignItems: 'center' }}> 
-                  <Map {...mapData} />
+                  <Map ref={canvasRef} {...mapData} />
                 </div>
               </Paper>
             </Grid>
             <Grid item xs={12} sm={6}>
               <Paper elevation={3} style={{ minHeight: '100%', display: 'flex', flexDirection: 'column' }}>
-                <Settings onSubmit={generateMap} />
+                <Settings onSubmit={generateMap} handleDownload={handleDownload} />
               </Paper>
             </Grid>
           </Grid>

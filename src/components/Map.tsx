@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, forwardRef, useImperativeHandle } from 'react';
 import { createNoise2D } from 'simplex-noise';
 import seedrandom from 'seedrandom';
 
@@ -22,7 +22,7 @@ interface RGBColor {
   blue: number;
 }
 
-const Map: React.FC<MapProps> = ({
+const Map = forwardRef<HTMLCanvasElement, MapProps>(({
   squareSize,
   boardSize,
   seed,
@@ -34,8 +34,10 @@ const Map: React.FC<MapProps> = ({
   scale,
   fractality,
   colors
-}) => {
+}, ref) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  useImperativeHandle(ref, () => canvasRef.current!);
 
   // Ensure the seed is positive
   seed = Math.abs(seed);
@@ -139,6 +141,6 @@ const Map: React.FC<MapProps> = ({
       <canvas ref={canvasRef} style={{ maxWidth: '100%', height: 'auto' }} />
     </div>
   );
-};
+});
 
 export default Map;
